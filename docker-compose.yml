@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  laravel:
+    build: ./docker/php
+    volumes:
+      - ./laravel:/work
+
+
+  nginx:
+    image: nginx:1.20-alpine
+    ports:
+      - 8000:80
+    volumes:
+      - ./laravel:/work
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /work
+
+  db:
+    build: ./docker/mysql
+    volumes:
+      - db-store:/var/lib/mysql
+    ports:
+      - 23306:3306
+
+volumes:
+  db-store:
