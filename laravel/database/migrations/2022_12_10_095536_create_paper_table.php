@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->text("title");
-            $table->text("memo");
-            $table->text("url");
-            $table->binary("pdf");
+            $table->text("memo")->nullable();
+            $table->text("url")->nullable();
+            $table->binary("pdf")->nullable();
         });
     }
 
