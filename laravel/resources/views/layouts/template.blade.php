@@ -7,6 +7,7 @@
     @yield('stylesheet')
 </head>
 <body>
+@include('common.validation-message')
 @yield('content')
 </body>
 </html>

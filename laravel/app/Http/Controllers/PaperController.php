@@ -51,29 +51,18 @@ class PaperController extends Controller
     public function store(StorePaperRequest $request)
     {
         $this->paper_service->create($request);
-        return redirect()->route('paper.index')->with('message', '登録しました。');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param Paper $paper
-     * @return Application|Factory|View
-     */
-    public function show(Paper $paper)
-    {
-        return view('paper.show', compact('paper'));
+        return redirect()->route('papers.index')->with('message', '登録しました。');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param Paper $paper
-     * @return Response
+     * @return Application|Factory|View
      */
     public function edit(Paper $paper)
     {
-        // TODO
+        return view('paper.edit', compact('paper'));
     }
 
     /**
@@ -81,11 +70,12 @@ class PaperController extends Controller
      *
      * @param UpdatePaperRequest $request
      * @param Paper $paper
-     * @return Response
+     * @return RedirectResponse
      */
     public function update(UpdatePaperRequest $request, Paper $paper)
     {
-        // TODO
+        $this->paper_service->update($request, $paper);
+        return redirect()->route('papers.index')->with('message', '更新しました。');
     }
 
     /**
