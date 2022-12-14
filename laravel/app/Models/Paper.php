@@ -18,6 +18,5 @@ class Paper extends Model
         'title',
         'memo',
         'url',
-        'pdf',
     ];
 }

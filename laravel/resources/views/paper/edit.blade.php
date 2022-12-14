@@ -20,6 +20,12 @@
             <input name="url" value="{{ $paper->url }}">
         </label>
 
+        <label>
+            PDF
+            <input name="pdf" type="file" accept="application/pdf">
+        </label>
+        <a href="{{ $paper->pdf_url }}" target="_blank">Download</a>
+
         <button type="submit">更新</button>
     </form>
 @endsection

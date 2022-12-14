@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->text("title");
             $table->text("memo")->nullable();
             $table->text("url")->nullable();
-            $table->binary("pdf")->nullable();
+            $table->binary("pdf_url")->nullable();
         });
     }
 

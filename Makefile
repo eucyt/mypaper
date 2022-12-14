@@ -16,9 +16,9 @@ down:
 	sudo docker-compose down
 destroy:
 	sudo docker-compose down --rmi all --volumes --remove-orphans
-	sudo rm laravel/.env
-	sudo rm -r laravel/node_modules
-	sudo rm -r laravel/vendor
+	- sudo rm laravel/.env
+	- sudo rm -r laravel/node_modules
+	- sudo rm -r laravel/vendor
 
 cache:
 	sudo docker-compose exec $(service_name) php artisan cache:clear

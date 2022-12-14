@@ -6,6 +6,7 @@ use App\Http\Requests\StorePaperRequest;
 use App\Http\Requests\UpdatePaperRequest;
 use App\Models\Paper;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class PaperService
 {
@@ -25,7 +26,17 @@ class PaperService
      */
     public function create(StorePaperRequest $request)
     {
-        return Paper::create($request->all());
+        $paper = Paper::create($request->all());
+
+        $pdf_file = $request->file('pdf');
+        $path = '/';
+        // TODO: make filename from paper title
+        $pdf_name = 'tmp.pdf';
+        Storage::disk('s3')->putFileAs($path, $pdf_file, $pdf_name);
+        $paper->pdf_url = config('filesystems.disks.s3.url') . '/'
+            . config('filesystems.disks.s3.bucket') . $path . $pdf_name;
+
+        return $paper->save();
     }
 
     /**
