@@ -2,7 +2,7 @@
 @section('title', '論文編集')
 @section('content')
     <h1 class="text-lg">Paper</h1>
-    <form action="{{ route('papers.update', $paper->id) }}" method="POST">
+    <form action="{{ route('papers.update', $paper->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
         <label>
