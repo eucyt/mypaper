@@ -15,9 +15,16 @@ return new class extends Migration {
         Schema::create('papers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text("title");
+            $table->string("title")->unique();
             $table->text("memo")->nullable();
             $table->text("url")->nullable();
+            $table->text("author")->nullable();
+            $table->text("journal")->nullable();
+            $table->text("publisher")->nullable();
+            $table->integer("volume")->nullable();
+            $table->integer("number")->nullable();
+            $table->text("pages")->nullable();
+            $table->integer("year")->nullable();
             $table->binary("pdf_url")->nullable();
         });
     }

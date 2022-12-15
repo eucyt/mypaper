@@ -29,6 +29,64 @@
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </label>
 
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Author
+                <input name="author" type="text" value="{{ old("author", $paper->author) }}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </label>
+        </div>
+
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Journal
+                <input name="journal" type="text" value="{{ old("journal", $paper->journal) }}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </label>
+        </div>
+
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Publisher
+                <input name="publisher" type="text" value="{{ old("publisher", $paper->publisher) }}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </label>
+        </div>
+
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Volume
+                    <input name="volume" type="number" value="{{ old("volume", $paper->volume) }}"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </label>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Number
+                    <input name="number" type="number" value="{{ old("number", $paper->number) }}"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </label>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Pages
+                    <input name="pages" type="text" value="{{ old("pages", $paper->pages) }}"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </label>
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Year
+                    <input name="year" type="number" value="{{ old("year", $paper->year) }}"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </label>
+            </div>
+        </div>
+
         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             PDF
             <div>

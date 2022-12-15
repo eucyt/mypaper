@@ -15,8 +15,15 @@ class Paper extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'memo',
-        'url',
+        "title",
+        "memo",
+        "url",
+        "author",
+        "journal",
+        "publisher",
+        "volume",
+        "number",
+        "pages",
+        "year",
     ];
 }

@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::resource('papers', PaperController::class);
+Route::delete('/papers/{id}', [PaperController::class, 'unregisterPdf'])->name('papers.unregisterPdf');

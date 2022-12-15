@@ -23,16 +23,17 @@ class PaperService
     /**
      * create a new paper
      * @param StorePaperRequest $request
-     * @return mixed
+     * @return void
      */
     public function create(StorePaperRequest $request)
     {
         $paper = Paper::create($request->all());
 
-        $uploaded_url = $this->uploadPdf($request->file('pdf'), $request->title);
-        $paper->pdf_url = $uploaded_url;
-
-        return $paper->save();
+        if ($request->file('pdf')) {
+            $uploaded_url = $this->uploadPdf($request->file('pdf'), $request->title);
+            $paper->pdf_url = $uploaded_url;
+            $paper->save();
+        }
     }
 
     /**
@@ -51,6 +52,18 @@ class PaperService
             $paper->pdf_url = $uploaded_url;
             $paper->save();
         }
+    }
+
+
+    /**
+     * delete paper's pdf url
+     * @param Paper $paper
+     * @return void
+     */
+    public function unregisterPdf(Paper $paper)
+    {
+        $paper->pdf_url = null;
+        $paper->save();
     }
 
 

@@ -24,10 +24,17 @@ class StorePaperRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required'],
-            'memo' => [],
-            'url' => [],
-            'pdf' => [],
+            "title" => ["required", "max:255", "unique:papers,title"],
+            "memo" => [],
+            "url" => [],
+            "pdf" => [],
+            "author" => [],
+            "journal" => [],
+            "publisher" => [],
+            "volume" => ["nullable", "numeric"],
+            "number" => ["nullable", "numeric"],
+            "pages" => [],
+            "year" => ["nullable", "numeric"],
         ];
     }
 }
