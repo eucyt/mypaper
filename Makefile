@@ -10,7 +10,6 @@ install:
 	sudo chmod -R 777 laravel/storage
 	-sudo rm laravel/public/storage
 	sudo docker-compose exec $(service_name) php artisan storage:link
-	cd laravel/ && npm run dev
 up:
 	sudo docker-compose up -d
 down:
