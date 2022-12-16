@@ -16,6 +16,8 @@ down:
 	sudo docker-compose down
 destroy:
 	sudo docker-compose down --rmi all --volumes --remove-orphans
+	- sudo rm -r docker/minio/config
+	- sudo rm -r docker/minio/data
 	- sudo rm laravel/.env
 	- sudo rm -r laravel/node_modules
 	- sudo rm -r laravel/vendor

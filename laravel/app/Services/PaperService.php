@@ -5,19 +5,19 @@ namespace App\Services;
 use App\Http\Requests\StorePaperRequest;
 use App\Http\Requests\UpdatePaperRequest;
 use App\Models\Paper;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 
 class PaperService
 {
     /**
      * get all papers
-     * @return Collection
+     * @return LengthAwarePaginator
      */
-    public function findAll(): Collection
+    public function search(): LengthAwarePaginator
     {
-        return Paper::all();
+        return Paper::paginate(15);
     }
 
     /**

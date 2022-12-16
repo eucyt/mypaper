@@ -28,7 +28,7 @@ class PaperController extends Controller
      */
     public function index()
     {
-        $papers = $this->paper_service->findAll();
+        $papers = $this->paper_service->search();
         return view('paper.index', compact("papers"));
     }
 
