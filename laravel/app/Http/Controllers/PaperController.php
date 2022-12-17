@@ -10,6 +10,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PaperController extends Controller
@@ -24,11 +25,12 @@ class PaperController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $papers = $this->paper_service->search();
+        $papers = $this->paper_service->search($request->keyword_sentence);
         return view('paper.index', compact("papers"));
     }
 

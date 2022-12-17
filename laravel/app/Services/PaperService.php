@@ -15,9 +15,28 @@ class PaperService
      * get all papers
      * @return LengthAwarePaginator
      */
-    public function search(): LengthAwarePaginator
+    public function search(?string $search_sentence): LengthAwarePaginator
     {
-        return Paper::paginate(15);
+        $query = Paper::query();
+
+        if ($search_sentence) {
+            // 全角スペースを半角に変換
+            $search_sentence = mb_convert_kana($search_sentence, 's');
+
+            $keywords = preg_split('/[\s,]+/', $search_sentence, -1, PREG_SPLIT_NO_EMPTY);
+
+            foreach ($keywords as $keyword) {
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('title', 'like', '%' . $keyword . '%')
+                        ->orWhere('memo', 'like', '%' . $keyword . '%')
+                        ->orWhere('author', 'like', '%' . $keyword . '%')
+                        ->orWhere('journal', 'like', '%' . $keyword . '%')
+                        ->orWhere('publisher', 'like', '%' . $keyword . '%')
+                        ->orWhere('year', 'like', '%' . $keyword . '%');
+                });
+            }
+        }
+        return $query->paginate(15);
     }
 
     /**
