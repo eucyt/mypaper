@@ -137,7 +137,10 @@
             ]
             cols.forEach((v) => {
                 const inputTag = document.getElementById(v)
-                inputTag.value = bibtex.match(new RegExp(v + "=\{(.*)\}"))[1]
+                const matchValue = bibtex.match(new RegExp(v + "=\{(.*)\}"))
+                if (matchValue && matchValue.length > 1) {
+                    inputTag.value = matchValue[1]
+                }
             })
         }
     </script>
