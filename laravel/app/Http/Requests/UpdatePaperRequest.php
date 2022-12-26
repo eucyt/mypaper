@@ -24,7 +24,7 @@ class UpdatePaperRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => ["required", "max:255", "unique:papers,title"],
+            "title" => ["required", "max:255"],
             "memo" => [],
             "url" => [],
             "pdf" => [],
