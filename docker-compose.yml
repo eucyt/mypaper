@@ -3,8 +3,7 @@ services:
   laravel:
     build: ./docker/php
     volumes:
-      - ./laravel:/work
-
+      - ./laravel:/var/www
 
   nginx:
     image: nginx:1.20-alpine
