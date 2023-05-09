@@ -1,10 +1,10 @@
 # For github action
-FROM php:8.2-fpm-buster as builder
+FROM php:8.2-apache
 
 COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
-
-COPY ./laravel /laravel
-WORKDIR /laravel
+COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/
+COPY ./laravel /var/www/laravel
+WORKDIR /var/www/laravel
 
 RUN apt-get update && \
   apt-get -y install git unzip libzip-dev libicu-dev libonig-dev && \
@@ -24,11 +24,5 @@ RUN php artisan cache:clear \
     && php artisan view:clear
 
 RUN chown -R www-data:www-data storage
-
-
-FROM php:8.2-apache
-
-COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/
-COPY --from=builder /laravel /var/www/laravel
 
 RUN a2ensite 000-default
