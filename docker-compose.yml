@@ -10,9 +10,9 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./laravel:/work
+      - ./laravel:/var/www
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    working_dir: /work
+    working_dir: /var/www
 
   db:
     build: ./docker/mysql
