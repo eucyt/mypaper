@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::resource('papers', PaperController::class);
 Route::delete('/papers/{id}', [PaperController::class, 'unregisterPdf'])->name('papers.unregisterPdf');
+
+Route::redirect('/', route('papers.index'));
