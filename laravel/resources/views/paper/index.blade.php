@@ -23,37 +23,40 @@
     </form>
 
     <div class="overflow-x-auto relative">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-6">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 my-6 table-fixed">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="w-5/12 py-3 px-6">
                     Title
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="w-1/3 py-3 px-6">
                     Memo
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="w-1/6 py-3 px-6">
                     Author
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="w-1/12 py-3 px-6">
+                    Link
                 </th>
             </tr>
             </thead>
             <tbody>
             @foreach($papers as $paper)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $paper->title }}
+                    <th scope="row"
+                        class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate">
+                        <a href="{{ route('papers.edit', $paper->id) }}"
+                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ $paper->title }}</a>
                     </th>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 truncate">
                         {{ $paper->memo }}
                     </td>
-                    <td class="py-4 px-6">
-                        Author
+                    <td class="py-4 px-6 truncate">
+                        {{ $paper->author }}
                     </td>
                     <td class="py-4 px-6">
-                        <a href="{{ route('papers.edit', $paper->id) }}"
-                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <a href={{ $paper->url }} target="_blank"
+                           class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Link
                     </td>
                 </tr>
             @endforeach
