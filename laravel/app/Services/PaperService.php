@@ -36,7 +36,7 @@ class PaperService
                 });
             }
         }
-        return $query->paginate(15);
+        return $query->latest()->paginate(15);
     }
 
     /**
