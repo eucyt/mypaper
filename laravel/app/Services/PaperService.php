@@ -110,7 +110,18 @@ class PaperService
      */
     private function normalizeTitle(string $title)
     {
-        $tmp = preg_replace('/[^0-9a-zA-Z]/', '_', $title);
-        return mb_strtolower(preg_replace('/_+/', '_', $tmp));
+        $title = str_replace("\\", "￥", $title);
+        $title = str_replace("/", "／", $title);
+        $title = str_replace(":", "：", $title);
+        $title = str_replace("*", "＊", $title);
+        $title = str_replace("?", "？", $title);
+        $title = str_replace("\"", "”", $title);
+        $title = str_replace("<", "＜", $title);
+        $title = str_replace(">", "＞", $title);
+        $title = str_replace("|", "｜", $title);
+        $title = mb_convert_kana($title, 's');
+        $title = str_replace(" ", "_", $title);
+        $title = preg_replace('/_+/', '_', $title);
+        return mb_strtolower($title);
     }
 }
