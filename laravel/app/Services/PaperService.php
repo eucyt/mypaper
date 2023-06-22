@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\StorePaperRequest;
 use App\Http\Requests\UpdatePaperRequest;
 use App\Models\Paper;
+use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
@@ -91,12 +92,15 @@ class PaperService
      * @param UploadedFile $file
      * @param string $title
      * @return string
+     * @throws Exception
      */
     private function uploadPdf(UploadedFile $file, string $title)
     {
         $path = '/';
         $pdf_name = $this->normalizeTitle($title) . '.pdf';
-        Storage::disk('s3')->putFileAs($path, $file, $pdf_name);
+        if (Storage::disk('s3')->putFileAs($path, $file, $pdf_name) === false) {
+            throw new Exception('PDFのアップロードに失敗しました。');
+        }
         return config('filesystems.disks.s3.url') . '/'
             . config('filesystems.disks.s3.bucket') . $path . $pdf_name;
     }
