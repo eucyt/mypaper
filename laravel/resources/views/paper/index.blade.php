@@ -32,11 +32,13 @@
                 <th scope="col" class="w-1/3 py-3 px-6">
                     Memo
                 </th>
-                <th scope="col" class="w-1/6 py-3 px-6">
+                <th scope="col" class="w-1/12 py-3 px-6">
                     Author
                 </th>
                 <th scope="col" class="w-1/12 py-3 px-6">
                     Link
+                </th>
+                <th scope="col" class="w-1/12 py-3 px-6">
                 </th>
             </tr>
             </thead>
@@ -57,6 +59,17 @@
                     <td class="py-4 px-6">
                         <a href={{ $paper->url }} target="_blank"
                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Link
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{{ route('papers.destroy', $paper->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit"
+                                    class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-md text-sm px-2 py-1 text-center my-auto dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-800">
+                                delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

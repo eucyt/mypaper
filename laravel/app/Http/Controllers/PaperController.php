@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class PaperController extends Controller
 {
@@ -84,10 +83,14 @@ class PaperController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Paper $paper
-     * @return Response
+     * @return RedirectResponse
      */
     public function destroy(Paper $paper)
     {
-        // TODO
+        if ($this->paper_service->delete($paper)) {
+            return redirect()->route('papers.index')->with('message', '削除しました。');
+        } else {
+            return redirect()->route('papers.index')->with('message', '削除できませんでした。');
+        }
     }
 }

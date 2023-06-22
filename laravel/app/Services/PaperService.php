@@ -124,4 +124,14 @@ class PaperService
         $title = preg_replace('/_+/', '_', $title);
         return mb_strtolower($title);
     }
+
+    /**
+     * delete the paper
+     * @param Paper $paper
+     * @return bool
+     */
+    public function delete(Paper $paper)
+    {
+        return $paper->delete();
+    }
 }
