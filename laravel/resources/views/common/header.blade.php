@@ -1,4 +1,9 @@
 <div class="w-full h-12 bg-gray-100 border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+    <div class="h-full flex ml-8">
+        <a href="/papers" class="h-full flex">
+            <p class="dark:text-white text-lg my-auto font-bold">MyPaper</p>
+        </a>
+    </div>
     <button onclick="changeDarkMode()"
             class="absolute right-2 top-2 rounded-lg p-4 bg-gray-300 dark:bg-gray-500">
         <div class="absolute right-2 top-2 invisible dark:visible">
