@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
