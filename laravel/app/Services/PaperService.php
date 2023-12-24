@@ -14,6 +14,7 @@ class PaperService
 {
     /**
      * get all papers
+     * @param string|null $search_sentence
      * @return LengthAwarePaginator
      */
     public function search(?string $search_sentence): LengthAwarePaginator
@@ -41,9 +42,20 @@ class PaperService
     }
 
     /**
+     * get the paper
+     * @param int $id
+     * @return Paper
+     */
+    public function get(int $id): Paper
+    {
+        return Paper::findOrFail($id);
+    }
+
+    /**
      * create a new paper
      * @param StorePaperRequest $request
      * @return void
+     * @throws Exception
      */
     public function create(StorePaperRequest $request)
     {
@@ -61,6 +73,7 @@ class PaperService
      * @param UpdatePaperRequest $request
      * @param Paper $paper
      * @return void
+     * @throws Exception
      */
     public function update(UpdatePaperRequest $request, Paper $paper)
     {
@@ -74,18 +87,37 @@ class PaperService
         }
     }
 
-
     /**
-     * delete paper's pdf url
      * @param Paper $paper
-     * @return void
+     * @return string|null
      */
-    public function unregisterPdf(Paper $paper)
+    public function downloadPdf(Paper $paper)
     {
-        $paper->pdf_url = null;
-        $paper->save();
+        return Storage::disk('s3')->get($paper->pdf_url);
     }
 
+    /**
+     * normalize title
+     * Return must have only lowercase alphabets and underscore.
+     * @param string $title
+     * @return string
+     */
+    public function normalizeTitle(string $title)
+    {
+        $title = str_replace("\\", "￥", $title);
+        $title = str_replace("/", "／", $title);
+        $title = str_replace(":", "：", $title);
+        $title = str_replace("*", "＊", $title);
+        $title = str_replace("?", "？", $title);
+        $title = str_replace("\"", "”", $title);
+        $title = str_replace("<", "＜", $title);
+        $title = str_replace(">", "＞", $title);
+        $title = str_replace("|", "｜", $title);
+        $title = mb_convert_kana($title, 's');
+        $title = str_replace(" ", "_", $title);
+        $title = preg_replace('/_+/', '_', $title);
+        return mb_strtolower($title);
+    }
 
     /**
      * upload PDF
@@ -101,32 +133,7 @@ class PaperService
         if (Storage::disk('s3')->putFileAs($path, $file, $pdf_name) === false) {
             throw new Exception('PDFのアップロードに失敗しました。');
         }
-        return config('filesystems.disks.s3.url') . '/'
-            . config('filesystems.disks.s3.bucket') . $path . $pdf_name;
-    }
-
-
-    /**
-     * normalize title
-     * Return must have only lowercase alphabets and underscore.
-     * @param string $title
-     * @return string
-     */
-    private function normalizeTitle(string $title)
-    {
-        $title = str_replace("\\", "￥", $title);
-        $title = str_replace("/", "／", $title);
-        $title = str_replace(":", "：", $title);
-        $title = str_replace("*", "＊", $title);
-        $title = str_replace("?", "？", $title);
-        $title = str_replace("\"", "”", $title);
-        $title = str_replace("<", "＜", $title);
-        $title = str_replace(">", "＞", $title);
-        $title = str_replace("|", "｜", $title);
-        $title = mb_convert_kana($title, 's');
-        $title = str_replace(" ", "_", $title);
-        $title = preg_replace('/_+/', '_', $title);
-        return mb_strtolower($title);
+        return $path . $pdf_name;
     }
 
     /**

@@ -27,8 +27,7 @@ class PaperFactory extends Factory
             "number" => $this->faker->numberBetween(),
             "pages" => $this->faker->numberBetween() . '--' . $this->faker->numberBetween(),
             "year" => $this->faker->year(),
-            "pdf_url" => config('filesystems.disks.s3.url') . '/'
-                . config('filesystems.disks.s3.bucket') . '/test.pdf'
+            "pdf_url" => '/test.pdf'
         ];
     }
 }

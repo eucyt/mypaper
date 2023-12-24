@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('papers', PaperController::class);
-Route::delete('/papers/{id}', [PaperController::class, 'unregisterPdf'])->name('papers.unregisterPdf');
+Route::get('/papers/{id}/pdf', [PaperController::class, 'downloadPdf'])->name('papers.pdf.download');
 
 Route::redirect('/', route('papers.index'));
 

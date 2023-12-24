@@ -6,11 +6,13 @@ use App\Http\Requests\StorePaperRequest;
 use App\Http\Requests\UpdatePaperRequest;
 use App\Models\Paper;
 use App\Services\PaperService;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class PaperController extends Controller
 {
@@ -92,5 +94,25 @@ class PaperController extends Controller
         } else {
             return redirect()->route('papers.index')->with('message', '削除できませんでした。');
         }
+    }
+
+    /**
+     * download pdf
+     *
+     * @param Request $request
+     * @return BinaryFileResponse
+     * @throws BindingResolutionException
+     */
+    public function downloadPdf(Request $request)
+    {
+        $paper = $this->paper_service->get($request->id);
+        if (empty($paper?->pdf_url)) {
+            abort(404);
+        }
+        $pdf = $this->paper_service->downloadPdf($paper);
+        return response()->make($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $this->paper_service->normalizeTitle($paper->title) . '.pdf'
+        ]);
     }
 }
