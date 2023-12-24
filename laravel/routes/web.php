@@ -18,3 +18,7 @@ Route::resource('papers', PaperController::class);
 Route::delete('/papers/{id}', [PaperController::class, 'unregisterPdf'])->name('papers.unregisterPdf');
 
 Route::redirect('/', route('papers.index'));
+
+Route::get('/health-check', function () {
+    return 'OK';
+});
