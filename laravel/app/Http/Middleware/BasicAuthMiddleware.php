@@ -9,6 +9,10 @@ use Illuminate\Http\Response;
 
 class BasicAuthMiddleware
 {
+    protected $except = [
+        'health-check',
+    ];
+
     /**
      * Handle an incoming request.
      *
@@ -18,6 +22,12 @@ class BasicAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
+        foreach ($this->except as $except) {
+            if ($request->is($except)) {
+                return $next($request);
+            }
+        }
+
         $username = $request->getUser();
         $password = $request->getPassword();
 
